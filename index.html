@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>What Should Your Factory Fix First? · DBR77 at Automate Chicago 2026</title>
+  <meta name="description" content="Answer 3 quick questions. Get matched with the right DBR77 tool. Book a short meeting with us at Automate Chicago 2026." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Brand tokens (from dbr77.com) ─────────────────────── */
+    :root {
+      --bg:             #0f172a;
+      --border:         #262626;
+      --text:           #ffffff;
+      --text-2:         #94a3b8;
+      --text-3:         #64748b;
+      --orange:         #ff6600;
+      /* product colours */
+      --iot:            #10b981;
+      --twin:           #3b82f6;
+      --iris:           #a020f0;
+      --market:         #c41a7a;
+      --consultify:     #2f6fe0;
+      --pill:           9999px;
+      --r-lg:           18px;
+      --r-md:           12px;
+      --maxw:           1080px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    .wrap {
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* ── Buttons ────────────────────────────────────────────── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-family: inherit;
+      font-weight: 600;
+      font-size: 15px;
+      border-radius: var(--pill);
+      text-decoration: none;
+      cursor: pointer;
+      border: 1px solid transparent;
+      padding: 13px 24px;
+      transition: background .18s, border-color .18s, transform .1s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btn:active { transform: scale(.98); }
+    .btn-white  { background: #fff; color: #0a0a0a; }
+    .btn-white:hover { background: #ececec; }
+    .btn-outline{ background: transparent; color: #fff; border-color: var(--border); }
+    .btn-outline:hover { border-color: rgba(255,255,255,.32); background: rgba(255,255,255,.04); }
+    .btn-sm { font-size: 13px; padding: 9px 16px; }
+
+    /* ── Header ──────────────────────────────────────────────── */
+    header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(15,23,42,.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav {
+      height: 60px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .logo { display: flex; align-items: center; text-decoration: none; line-height: 1; }
+    .logo svg { height: 30px; width: auto; display: block; }
+    @media (min-width: 700px) { .logo svg { height: 34px; } }
+    /* header CTA stays hidden while the hero is on screen, then fades in */
+    #hdr-cta { opacity: 0; visibility: hidden; transform: translateY(-6px); transition: opacity .25s ease, transform .25s ease, visibility .25s; pointer-events: none; }
+    #hdr-cta.show { opacity: 1; visibility: visible; transform: none; pointer-events: auto; }
+    /* header nav links — hidden on mobile, shown from 760px */
+    .hdr-nav { display: none; gap: 26px; margin-left: auto; margin-right: 22px; }
+    .hdr-nav a {
+      font-size: 13.5px; font-weight: 500; color: var(--text-2); text-decoration: none;
+      letter-spacing: -.01em; transition: color .15s;
+    }
+    .hdr-nav a:hover { color: #fff; }
+    @media (min-width: 760px) { .hdr-nav { display: flex; } }
+
+    /* ── Hero ────────────────────────────────────────────────── */
+    .hero { padding: 56px 0 48px; }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 11px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase;
+      color: var(--text-3); margin-bottom: 20px;
+    }
+    .eyebrow i { width: 6px; height: 6px; border-radius: 50%; background: var(--orange); }
+    .hero h1 {
+      font-size: clamp(32px, 8vw, 56px);
+      font-weight: 800; line-height: 1.08; letter-spacing: -.03em;
+      margin-bottom: 18px; max-width: 760px;
+    }
+    .hero p.lead {
+      font-size: clamp(15px, 4vw, 18px);
+      color: var(--text-2); max-width: 520px; margin-bottom: 24px; line-height: 1.6;
+    }
+    .moas {
+      font-size: clamp(12px, 3.2vw, 14px);
+      font-weight: 700; letter-spacing: .02em;
+      margin-bottom: 30px; color: var(--text);
+    }
+    .moas span { color: var(--text-3); }
+    .hero-ctas { display: flex; flex-direction: column; gap: 10px; }
+
+    /* ── Section scaffolding ─────────────────────────────────── */
+    section { padding: 52px 0; }
+    .sec-eyebrow {
+      font-size: 11px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase;
+      color: var(--text-3); margin-bottom: 12px;
+    }
+    .sec-title {
+      font-size: clamp(24px, 6vw, 36px);
+      font-weight: 700; letter-spacing: -.025em; line-height: 1.18; margin-bottom: 12px;
+    }
+    .sec-sub { font-size: 15px; color: var(--text-2); max-width: 480px; }
+    .sec-head { margin-bottom: 28px; }
+
+    /* ── Challenge list ──────────────────────────────────────── */
+    .challenges { display: flex; flex-direction: column; gap: 10px; }
+    .ch {
+      display: flex; align-items: center; gap: 14px;
+      text-decoration: none; color: var(--text);
+      background: rgba(255,255,255,.02);
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+      padding: 18px 18px;
+      transition: border-color .18s, background .18s;
+    }
+    .ch:hover { border-color: rgba(255,255,255,.18); background: rgba(255,255,255,.04); }
+    .ch-num {
+      flex-shrink: 0;
+      width: 30px; height: 30px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 700; color: #fff;
+    }
+    .ch-body { flex: 1; min-width: 0; }
+    .ch-body b { display: block; font-size: 15px; font-weight: 600; letter-spacing: -.01em; line-height: 1.3; margin-bottom: 3px; }
+    .ch-body span { font-size: 13px; color: var(--text-2); line-height: 1.45; }
+    .ch-arrow { flex-shrink: 0; color: var(--text-3); }
+
+    /* ── Product answers ─────────────────────────────────────── */
+    .answers { display: flex; flex-direction: column; gap: 14px; }
+    .prod {
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 26px 22px;
+      position: relative;
+      overflow: hidden;
+      background: rgba(255,255,255,.02);
+    }
+    .prod::before {
+      content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+      background: var(--c);
+    }
+    .prod-step {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 14px;
+    }
+    .prod-badge {
+      width: 32px; height: 32px; border-radius: 9px;
+      display: flex; align-items: center; justify-content: center;
+      background: color-mix(in srgb, var(--c) 16%, transparent);
+    }
+    .prod-stepno {
+      font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+      color: var(--c);
+    }
+    .prod h3 { font-size: 21px; font-weight: 700; letter-spacing: -.02em; margin-bottom: 8px; }
+    .prod p { font-size: 14px; color: var(--text-2); line-height: 1.6; margin-bottom: 14px; }
+    .prod .best {
+      font-size: 13px; color: var(--text-2); line-height: 1.5; margin-bottom: 18px;
+      padding-left: 12px; border-left: 2px solid color-mix(in srgb, var(--c) 40%, transparent);
+    }
+    .prod .best b { color: var(--text); font-weight: 600; }
+    .prod-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 14px; font-weight: 600; text-decoration: none;
+      color: var(--c);
+    }
+    .prod-link:hover { gap: 9px; }
+
+    /* ── Compact recommendation form ─────────────────────────── */
+    .rec {
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 32px 22px;
+      background: rgba(255,255,255,.02);
+    }
+    .rec h2 { font-size: clamp(22px, 5.5vw, 30px); font-weight: 700; letter-spacing: -.025em; line-height: 1.2; margin-bottom: 10px; }
+    .rec p.sub { font-size: 14px; color: var(--text-2); margin-bottom: 22px; line-height: 1.6; }
+    .form { display: flex; flex-direction: column; gap: 11px; }
+    .f-field { display: flex; flex-direction: column; gap: 6px; }
+    .f-field label { font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--text-3); }
+    .f-field input, .f-field select, .f-field textarea {
+      font-family: inherit; font-size: 16px; color: #fff;
+      background: rgba(255,255,255,.04);
+      border: 1px solid var(--border); border-radius: var(--r-md);
+      padding: 13px 14px; outline: none; -webkit-appearance: none;
+      transition: border-color .15s; width: 100%;
+    }
+    .f-field textarea { resize: vertical; min-height: 76px; line-height: 1.5; }
+    .f-field input::placeholder, .f-field textarea::placeholder { color: var(--text-3); }
+    .f-field select option { background: #1a2234; }
+    .f-field input:focus, .f-field select:focus, .f-field textarea:focus { border-color: rgba(255,255,255,.3); }
+    .f-field input.invalid, .f-field select.invalid { border-color: #f43f5e; }
+    /* two-column rows collapse to one on mobile */
+    .f-row { display: grid; grid-template-columns: 1fr; gap: 11px; }
+    @media (min-width: 480px) { .f-row { grid-template-columns: 1fr 1fr; } }
+    /* consent checkbox */
+    .f-consent { display: flex; align-items: flex-start; gap: 9px; cursor: pointer; margin-top: 2px; }
+    .f-consent input { width: 17px; height: 17px; margin-top: 2px; flex-shrink: 0; accent-color: var(--iot); cursor: pointer; }
+    .f-consent input.invalid { outline: 2px solid #f43f5e; outline-offset: 1px; border-radius: 3px; }
+    .f-consent span { font-size: 12.5px; color: var(--text-2); line-height: 1.45; }
+    .btn-submit {
+      width: 100%; font-family: inherit; font-size: 16px; font-weight: 600;
+      color: #0a0a0a; background: #fff; border: none; border-radius: var(--pill);
+      padding: 15px; cursor: pointer; margin-top: 4px; transition: background .15s;
+    }
+    .btn-submit:hover { background: #ececec; }
+    .f-legal { font-size: 11px; color: var(--text-3); text-align: center; margin-top: 10px; line-height: 1.5; }
+    .f-success { display: none; text-align: center; padding: 24px 0; }
+    .f-success h3 { font-size: 19px; font-weight: 700; color: var(--iot); margin-bottom: 8px; }
+    .f-success p { font-size: 14px; color: var(--text-2); }
+
+    /* ── Booth CTA ───────────────────────────────────────────── */
+    .booth {
+      text-align: center;
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 44px 24px;
+      background: rgba(255,102,0,.04);
+    }
+    .booth h2 { font-size: clamp(24px, 6vw, 34px); font-weight: 800; letter-spacing: -.025em; margin-bottom: 12px; }
+    .booth p { font-size: 15px; color: var(--text-2); max-width: 440px; margin: 0 auto 26px; line-height: 1.6; }
+
+    /* ── Team booking ────────────────────────────────────────── */
+    .team-grid { display: flex; flex-direction: column; gap: 14px; }
+    .tcard {
+      display: flex; align-items: center; gap: 16px;
+      border: 1px solid var(--border); border-radius: var(--r-lg);
+      padding: 18px; background: rgba(255,255,255,.02);
+      transition: border-color .18s;
+    }
+    .tcard:hover { border-color: rgba(255,255,255,.16); }
+    .tcard img {
+      width: 64px; height: 64px; border-radius: 50%;
+      object-fit: cover; flex-shrink: 0;
+      border: 2px solid rgba(255,255,255,.1);
+    }
+    .tcard-body { flex: 1; min-width: 0; }
+    .tcard-name { font-size: 16px; font-weight: 700; letter-spacing: -.01em; }
+    .tcard-role { font-size: 12.5px; color: var(--text-2); line-height: 1.4; margin-top: 2px; }
+    .tcard-flag { font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--text-3); margin-top: 6px; }
+    .tcard-actions { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+    .tcard-li {
+      width: 44px; height: 44px; border-radius: 50%; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: #0a66c2; color: #fff; border: none;
+      box-shadow: 0 2px 10px rgba(10,102,194,.35);
+      transition: background .18s, transform .1s, box-shadow .18s;
+    }
+    .tcard-li:hover { background: #0d7ae6; box-shadow: 0 4px 16px rgba(10,102,194,.5); }
+    .tcard-li:active { transform: scale(.95); }
+    .tcard-li svg { width: 20px; height: 20px; }
+    @media (max-width: 560px) {
+      .tcard { flex-wrap: wrap; }
+      .tcard-actions { width: 100%; margin-top: 2px; }
+      .tcard-actions .btn { flex: 1; }
+    }
+    @media (min-width: 760px) {
+      .team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+      .tcard { flex-direction: column; text-align: center; padding: 32px 24px; gap: 14px; }
+      .tcard img { width: 96px; height: 96px; }
+      .tcard-actions { width: 100%; }
+      .tcard-actions .btn { flex: 1; }
+      .tcard-body { flex: none; }
+    }
+
+    /* ── Back-to-top floating button ─────────────────────────── */
+    #to-top {
+      position: fixed; right: 18px; bottom: 18px; z-index: 90;
+      width: 48px; height: 48px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      background: #fff; color: #0a0a0a; border: none; cursor: pointer;
+      box-shadow: 0 6px 20px rgba(0,0,0,.35);
+      opacity: 0; visibility: hidden; transform: translateY(10px);
+      transition: opacity .25s ease, transform .25s ease, visibility .25s;
+    }
+    #to-top.show { opacity: 1; visibility: visible; transform: none; }
+    #to-top:hover { background: #ececec; }
+    @media (min-width: 700px) { #to-top { right: 28px; bottom: 28px; } }
+
+    /* ── Footer ──────────────────────────────────────────────── */
+    footer { border-top: 1px solid var(--border); padding: 28px 0; }
+    .foot { display: flex; flex-direction: column; gap: 8px; text-align: center; }
+    .foot b { font-size: 13px; font-weight: 700; color: var(--text-3); }
+    .foot span { font-size: 12px; color: var(--text-3); }
+
+    /* ── Fade-up ─────────────────────────────────────────────── */
+    .up { opacity: 0; transform: translateY(20px); transition: opacity .5s ease, transform .5s ease; }
+    .up.in { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) { .up { opacity: 1; transform: none; transition: none; } }
+
+    /* ── Tablet / desktop enhancements ───────────────────────── */
+    @media (min-width: 700px) {
+      .wrap { padding: 0 32px; }
+      .nav { height: 72px; }
+      .hero { padding: 90px 0 70px; }
+      .hero-ctas { flex-direction: row; }
+      .hero-ctas .btn { padding: 14px 28px; }
+      section { padding: 80px 0; }
+      .answers { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+      .rec { padding: 48px; }
+      .rec-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+      .booth { padding: 64px 32px; }
+      .booth .btn { min-width: 240px; }
+      .foot { flex-direction: row; justify-content: space-between; text-align: left; }
+    }
+    @media (min-width: 980px) {
+      .answers { grid-template-columns: repeat(3, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Header ────────────────────────────────────────────────── -->
+<header id="top">
+  <div class="wrap nav">
+    <a class="logo" href="#top" aria-label="DBR77 — back to top">
+      <svg viewBox="0 0 275.25 108.78" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
+        <polygon points="171.19 0 162.34 12.24 194.01 12.24 160.65 59.02 177.23 59.02 219.84 0 171.19 0" fill="#fff"/>
+        <path d="M96.88,32.5q12.21,4.38,12.21,17.73A21.15,21.15,0,0,1,106.8,60a19.25,19.25,0,0,1-6.58,7.34,23.15,23.15,0,0,1-8.81,3.33,56.56,56.56,0,0,1-9.68.86H62.67V59.09H82.59a30.55,30.55,0,0,0,4.76-.38,13.68,13.68,0,0,0,4.29-1.38,8.11,8.11,0,0,0,3.1-2.86,8.63,8.63,0,0,0,1.19-4.72,8,8,0,0,0-1.19-4.48,9.66,9.66,0,0,0-3-3A13,13,0,0,0,87.5,40.7a23,23,0,0,0-4.62-.48H62.67V27.83H81a25.71,25.71,0,0,0,3.81-.28,9.65,9.65,0,0,0,3.38-1.15,6.65,6.65,0,0,0,3.39-6.2,7.45,7.45,0,0,0-.86-3.76,6.87,6.87,0,0,0-2.29-2.38,9.74,9.74,0,0,0-3.28-1.29,19.13,19.13,0,0,0-3.77-.38H62.67V0H78.11C80,0,81.79.05,83.64.14A34,34,0,0,1,89,.86a26.46,26.46,0,0,1,5.1,1.67,17.37,17.37,0,0,1,4.67,3.09,16.79,16.79,0,0,1,4.38,6,17.65,17.65,0,0,1,1.63,7.24A14.79,14.79,0,0,1,96.88,32.5Z" fill="#fff"/>
+        <path d="M157.1,71.48h-16L115.35,34.22h15.16a17.64,17.64,0,0,0,4.91-.67,11.73,11.73,0,0,0,4.05-2,9.48,9.48,0,0,0,2.71-3.38,11.09,11.09,0,0,0,1-4.91,10.44,10.44,0,0,0-1-4.82,9.77,9.77,0,0,0-2.82-3.38,12.23,12.23,0,0,0-4-2,17.18,17.18,0,0,0-4.77-.67H108.78V.09h21.83A46.05,46.05,0,0,1,139.8,1,19.84,19.84,0,0,1,148,4.86a21.87,21.87,0,0,1,8.4,17.35,26.13,26.13,0,0,1-1.77,9.24,20.48,20.48,0,0,1-5.1,7.82,19,19,0,0,1-5.48,3.86,37.39,37.39,0,0,1-6.33,2Z" fill="#fff"/>
+        <path d="M45.56,8.29a31.62,31.62,0,0,1,5,5.82,38,38,0,0,1,3.67,6.81,39.86,39.86,0,0,1,2.24,7.43A39.52,39.52,0,0,1,57.28,36a37.14,37.14,0,0,1-1.14,9.1,38.17,38.17,0,0,1-3.29,8.58,33.74,33.74,0,0,1-5.34,7.43,30,30,0,0,1-7.29,5.67,32.9,32.9,0,0,1-11.48,3.77,85.73,85.73,0,0,1-12.25.9H0V59.09H16.11A70,70,0,0,0,25,58.57a24.38,24.38,0,0,0,8.49-2.91,19.44,19.44,0,0,0,4.62-3.57,20.49,20.49,0,0,0,3.38-4.72A25,25,0,0,0,44.23,36a24.17,24.17,0,0,0-2-9.63,22.68,22.68,0,0,0-5.71-8A19.87,19.87,0,0,0,31.26,15a27.94,27.94,0,0,0-5.71-1.76,43.06,43.06,0,0,0-6.06-.72q-3.1-.13-6.24-.14H0V0H16.21q3.7,0,7.67.33a51.51,51.51,0,0,1,7.81,1.29,44.07,44.07,0,0,1,7.39,2.53A26.05,26.05,0,0,1,45.56,8.29Z" fill="#fff"/>
+        <polygon points="226.59 0 217.75 12.24 249.41 12.24 216.03 59.02 232.6 59.02 275.25 0 226.59 0" fill="#fff"/>
+        <text x="1" y="103" font-family="Inter, Montserrat, sans-serif" font-size="13" font-weight="300" letter-spacing="4.55" fill="#fff">INDUSTRIAL INTELLIGENCE</text>
+      </svg>
+    </a>
+    <nav class="hdr-nav">
+      <a href="#challenges">Challenges</a>
+      <a href="#answers">Solutions</a>
+      <a href="#check">Leave Contact</a>
+      <a href="#book">Book</a>
+    </nav>
+    <a id="hdr-cta" class="btn btn-white btn-sm" href="#book">Book a Meeting</a>
+  </div>
+</header>
+
+<!-- ── Hero ──────────────────────────────────────────────────── -->
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow up"><i></i> Automate Chicago 2026</div>
+    <h1 class="up">What Should Your Factory Fix First?</h1>
+    <p class="lead up">Answer 3 quick questions. Get matched with the right DBR77 tool. Book a short meeting with us at the booth.</p>
+    <p class="moas up">
+      <span style="color:var(--iot)">Measure.</span>
+      <span style="color:var(--twin)">Optimize.</span>
+      <span style="color:var(--iris)">Manage.</span>
+      <span style="color:var(--market)">Automate.</span>
+      <span style="color:var(--consultify)">Scale.</span>
+    </p>
+    <div class="hero-ctas up">
+      <a class="btn btn-white" href="#check">Leave Your Contact</a>
+      <a class="btn btn-outline" href="#book">Book a 15-Min Meeting</a>
+      <a class="btn btn-outline" href="#challenges">Start the 60-Second Check</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── Challenges ────────────────────────────────────────────── -->
+<section id="challenges">
+  <div class="wrap">
+    <div class="sec-head up">
+      <p class="sec-eyebrow">Step 1 · Pick Your Reality</p>
+      <h2 class="sec-title">What is slowing your factory down?</h2>
+      <p class="sec-sub">Choose the challenge that sounds closest to your reality.</p>
+    </div>
+
+    <div class="challenges">
+      <a class="ch up" href="#iot">
+        <span class="ch-num" style="background:var(--iot);">1</span>
+        <span class="ch-body"><b>We don't trust our production data.</b><span>Machines are running, but the real losses are hidden.</span></span>
+        <svg class="ch-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>
+      </a>
+      <a class="ch up" href="#twin">
+        <span class="ch-num" style="background:var(--twin);">2</span>
+        <span class="ch-body"><b>We need to validate automation before CAPEX.</b><span>The investment looks promising, but the risk is too high.</span></span>
+        <svg class="ch-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>
+      </a>
+      <a class="ch up" href="#iris">
+        <span class="ch-num" style="background:var(--iris);">3</span>
+        <span class="ch-body"><b>Our plant runs on spreadsheets and meetings.</b><span>Too many systems. Too many versions of the truth.</span></span>
+        <svg class="ch-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>
+      </a>
+      <a class="ch up" href="#market">
+        <span class="ch-num" style="background:var(--market);">4</span>
+        <span class="ch-body"><b>We need the right automation integrator.</b><span>The project is clear, but comparing suppliers takes too long.</span></span>
+        <svg class="ch-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>
+      </a>
+      <a class="ch up" href="#consultify">
+        <span class="ch-num" style="background:var(--consultify);">5</span>
+        <span class="ch-body"><b>Too many initiatives, too little execution.</b><span>The strategy exists, but progress is hard to control and scale.</span></span>
+        <svg class="ch-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── DBR77 Answers ─────────────────────────────────────────── -->
+<section id="answers">
+  <div class="wrap">
+    <div class="sec-head up">
+      <p class="sec-eyebrow">Step 2 · DBR77 Answers</p>
+      <h2 class="sec-title">One tool for each stage.</h2>
+      <p class="sec-sub">Measure → Optimize → Manage → Automate → Scale. Each works on its own — together they form one platform.</p>
+    </div>
+
+    <div class="answers">
+      <!-- 1 IoT -->
+      <article class="prod up" id="iot" style="--c:var(--iot);">
+        <div class="prod-step">
+          <span class="prod-badge">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--iot)" stroke-width="1.9"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>
+          </span>
+          <span class="prod-stepno">1 · Measure</span>
+        </div>
+        <h3>Industrial IoT</h3>
+        <p>Connect your machines. Capture real production signals. See downtime, OEE, alerts, and shop-floor performance in real time.</p>
+        <p class="best"><b>Best when:</b> you need reliable data before making bigger decisions.</p>
+        <a class="prod-link" href="https://iot.dbr77.com/" target="_blank" rel="noopener">Explore Industrial IoT
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </article>
+
+      <!-- 2 Digital Twin -->
+      <article class="prod up" id="twin" style="--c:var(--twin);">
+        <div class="prod-step">
+          <span class="prod-badge">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--twin)" stroke-width="1.9"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+          </span>
+          <span class="prod-stepno">2 · Optimize</span>
+        </div>
+        <h3>Digital Twin</h3>
+        <p>Build a virtual model of your process, layout, or production flow. Test scenarios before investing in physical changes.</p>
+        <p class="best"><b>Best when:</b> you need to reduce CAPEX risk and prove the business case first.</p>
+        <a class="prod-link" href="https://dt.dbr77.com/" target="_blank" rel="noopener">Explore Digital Twin
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </article>
+
+      <!-- 3 IRIS -->
+      <article class="prod up" id="iris" style="--c:var(--iris);">
+        <div class="prod-step">
+          <span class="prod-badge">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--iris)" stroke-width="1.9"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          </span>
+          <span class="prod-stepno">3 · Manage</span>
+        </div>
+        <h3>IRIS</h3>
+        <p>Run production, maintenance, quality, warehouse, KPIs, and tasks in one AI-native Plant Operating System.</p>
+        <p class="best"><b>Best when:</b> your factory is managed through spreadsheets, meetings, and disconnected tools.</p>
+        <a class="prod-link" href="https://iris.dbr77.com/" target="_blank" rel="noopener">Explore IRIS
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </article>
+
+      <!-- 4 Marketplace -->
+      <article class="prod up" id="market" style="--c:var(--market);">
+        <div class="prod-step">
+          <span class="prod-badge">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--market)" stroke-width="1.9"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><path d="M3 6h18M16 10a4 4 0 01-8 0"/></svg>
+          </span>
+          <span class="prod-stepno">4 · Automate</span>
+        </div>
+        <h3>Marketplace</h3>
+        <p>Post your automation challenge and connect with verified integrators. Compare proposals and move from idea to supplier faster.</p>
+        <p class="best"><b>Best when:</b> you know what needs automating and need the right execution partner.</p>
+        <a class="prod-link" href="https://marketplace.dbr77.com/marketplace" target="_blank" rel="noopener">Explore Marketplace
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </article>
+
+      <!-- 5 Consultify -->
+      <article class="prod up" id="consultify" style="--c:var(--consultify);">
+        <div class="prod-step">
+          <span class="prod-badge">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--consultify)" stroke-width="1.9"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </span>
+          <span class="prod-stepno">5 · Scale</span>
+        </div>
+        <h3>Consultify</h3>
+        <p>Turn digital transformation into an executable program. Prioritize initiatives, assign owners, track ROI, report progress.</p>
+        <p class="best"><b>Best when:</b> you need to move from scattered projects to scalable transformation.</p>
+        <a class="prod-link" href="https://consultify.ai/" target="_blank" rel="noopener">Explore Consultify
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </article>
+
+      <!-- spacer card on desktop 3-col grid keeps balance; hidden visually empty -->
+    </div>
+  </div>
+</section>
+
+<!-- ── Recommended next step (form) ──────────────────────────── -->
+<section id="check">
+  <div class="wrap">
+    <div class="rec up">
+      <div class="rec-grid">
+        <div>
+          <p class="sec-eyebrow">Step 3 · Your Next Step</p>
+          <h2>Want a recommended next step?</h2>
+          <p class="sub">Tell us what you are working on. We will send you a practical recommendation after Automate Chicago.</p>
+        </div>
+        <div>
+          <form class="form" id="rec-form" novalidate>
+            <div class="f-row">
+              <div class="f-field">
+                <label for="fname">First Name *</label>
+                <input id="fname" name="firstName" type="text" autocomplete="given-name" placeholder="John" required />
+              </div>
+              <div class="f-field">
+                <label for="lname">Last Name *</label>
+                <input id="lname" name="lastName" type="text" autocomplete="family-name" placeholder="Smith" required />
+              </div>
+            </div>
+            <div class="f-field">
+              <label for="email">Email *</label>
+              <input id="email" name="email" type="email" autocomplete="email" placeholder="john@company.com" required />
+            </div>
+            <div class="f-field">
+              <label for="phone">Phone *</label>
+              <input id="phone" name="phone" type="tel" autocomplete="tel" placeholder="+1 (555) 000-0000" required />
+            </div>
+            <div class="f-field">
+              <label for="ch">Your Biggest Challenge *</label>
+              <select id="ch" name="challenge" required>
+                <option value="">Select…</option>
+                <option value="iot">We don't trust our production data</option>
+                <option value="twin">Validate automation before CAPEX</option>
+                <option value="iris">Spreadsheets and meetings</option>
+                <option value="market">Need the right integrator</option>
+                <option value="consultify">Too many initiatives, little execution</option>
+              </select>
+            </div>
+            <label class="f-consent">
+              <input id="consent" name="consent" type="checkbox" required />
+              <span>I agree to DBR77 using my data to contact me about my request. *</span>
+            </label>
+            <button type="submit" class="btn-submit">Send Me My Recommended Next Step</button>
+            <p class="f-legal">* Required. We use this only to send your recommendation. We never sell your data.</p>
+          </form>
+          <div class="f-success" id="rec-success">
+            <h3>Got it.</h3>
+            <p>We'll send your recommended next step after Automate Chicago. See you at the booth.</p>
+            <a href="#top" class="btn btn-outline btn-sm" style="margin-top:18px;">← Back to top</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Book a meeting with the team ───────────────────────────── -->
+<section id="book">
+  <div class="wrap">
+    <div class="sec-head up" style="text-align:center;">
+      <p class="sec-eyebrow" style="color:var(--orange);">Still at the show?</p>
+      <h2 class="sec-title" style="margin-left:auto;margin-right:auto;">Book a meeting with our team.</h2>
+      <p class="sec-sub" style="margin-left:auto;margin-right:auto;">Pick the right contact and grab a 15-minute slot at Automate Chicago.</p>
+    </div>
+
+    <div class="team-grid">
+      <div class="tcard up">
+        <img src="team/torian.png" alt="Torian Richardson" loading="lazy" />
+        <div class="tcard-body">
+          <div class="tcard-name">Torian Richardson</div>
+          <div class="tcard-role">Chief Executive Officer · DBR77 USA</div>
+          <div class="tcard-flag">🇺🇸 United States</div>
+        </div>
+        <div class="tcard-actions">
+          <a class="btn btn-white btn-sm" href="https://meetings.hubspot.com/torian-richardson?uuid=c6b052e8-98cb-422f-8ec8-35d8305c6775" target="_blank" rel="noopener">Book a meeting</a>
+          <a class="tcard-li" href="https://www.linkedin.com/in/torian/" target="_blank" rel="noopener" aria-label="Torian Richardson on LinkedIn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 110-4.13 2.06 2.06 0 010 4.13zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.22.79 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="tcard up">
+        <img src="team/justyna.png" alt="Justyna Łaskowska" loading="lazy" />
+        <div class="tcard-body">
+          <div class="tcard-name">Justyna Łaskowska</div>
+          <div class="tcard-role">Human Resources Manager</div>
+          <div class="tcard-flag">🇺🇸 Team USA</div>
+        </div>
+        <div class="tcard-actions">
+          <a class="btn btn-white btn-sm" href="https://meetings.hubspot.com/justyna-laskowska?uuid=265ec163-4ebb-4fdd-b5b9-1e9e2fc23b9e" target="_blank" rel="noopener">Book a meeting</a>
+          <a class="tcard-li" href="https://www.linkedin.com/in/justyna-%C5%82askowska/?locale=en" target="_blank" rel="noopener" aria-label="Justyna Łaskowska on LinkedIn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 110-4.13 2.06 2.06 0 010 4.13zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.22.79 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="tcard up">
+        <img src="team/piotr.png" alt="Piotr Wiśniewski" loading="lazy" />
+        <div class="tcard-body">
+          <div class="tcard-name">Piotr Wiśniewski</div>
+          <div class="tcard-role">Founder</div>
+          <div class="tcard-flag">🌍 Global</div>
+        </div>
+        <div class="tcard-actions">
+          <a class="btn btn-white btn-sm" href="https://meetings.hubspot.com/piotr-wisniewski1?uuid=03e26c16-cfdd-4c5b-ad4a-01b3d36f6467" target="_blank" rel="noopener">Book a meeting</a>
+          <a class="tcard-li" href="https://www.linkedin.com/in/piotrkrzysztofwisniewski/" target="_blank" rel="noopener" aria-label="Piotr Wiśniewski on LinkedIn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 110-4.13 2.06 2.06 0 010 4.13zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.22.79 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Back to top ───────────────────────────────────────────── -->
+<a id="to-top" href="#top" aria-label="Back to top">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</a>
+
+<!-- ── Footer ────────────────────────────────────────────────── -->
+<footer>
+  <div class="wrap foot">
+    <b>DBR77 · Industrial Intelligence™</b>
+    <span>Automate Chicago 2026 · © DBR77 Robotics</span>
+  </div>
+</footer>
+
+<script>
+  // Fade-up
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  }), { threshold: .08, rootMargin: '0px 0px -24px 0px' });
+  document.querySelectorAll('.up').forEach(el => io.observe(el));
+
+  // Header "Book a Meeting" + floating back-to-top appear after the hero scrolls out of view
+  const heroEl = document.querySelector('.hero');
+  const hdrCta = document.getElementById('hdr-cta');
+  const toTop = document.getElementById('to-top');
+  const heroIo = new IntersectionObserver(([e]) => {
+    const past = !e.isIntersecting;
+    hdrCta.classList.toggle('show', past);
+    toTop.classList.toggle('show', past);
+  }, { rootMargin: '-60px 0px 0px 0px' });
+  heroIo.observe(heroEl);
+
+  // Form
+  const form = document.getElementById('rec-form');
+  const val = id => (document.getElementById(id).value || '').trim();
+  const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+
+    // Validate required fields
+    const required = ['fname', 'lname', 'email', 'phone', 'ch'];
+    let firstBad = null;
+    required.forEach(id => {
+      const el = document.getElementById(id);
+      const ok = el.value.trim() && (id !== 'email' || emailRe.test(el.value.trim()));
+      el.classList.toggle('invalid', !ok);
+      if (!ok && !firstBad) firstBad = el;
+    });
+    // Consent must be checked
+    const consentEl = document.getElementById('consent');
+    consentEl.classList.toggle('invalid', !consentEl.checked);
+    if (!consentEl.checked && !firstBad) firstBad = consentEl;
+    if (firstBad) { firstBad.focus(); return; }
+
+    // Collect the real data the visitor entered
+    const lead = {
+      firstName: val('fname'),
+      lastName:  val('lname'),
+      email:     val('email'),
+      phone:     val('phone'),
+      challenge: val('ch'),
+      consent:   consentEl.checked,
+      ts:        new Date().toISOString(),
+      source:    'automate-chicago-2026'
+    };
+
+    try {
+      const leads = JSON.parse(localStorage.getItem('dbr77_leads') || '[]');
+      leads.push(lead);
+      localStorage.setItem('dbr77_leads', JSON.stringify(leads));
+    } catch(_) {}
+
+    // TODO: POST `lead` to your CRM / HubSpot endpoint here.
+    // fetch('https://your-endpoint', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(lead) });
+
+    form.style.display = 'none';
+    document.getElementById('rec-success').style.display = 'block';
+  });
+
+  // Clear the invalid state as the visitor corrects a field
+  form.querySelectorAll('input, select').forEach(el =>
+    el.addEventListener('input', () => el.classList.remove('invalid')));
+</script>
+</body>
+</html>
