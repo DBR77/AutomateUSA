@@ -40,14 +40,20 @@ Są dwie drogi. **Rekomendowana: GitHub Pages** (zero kosztów, repo już ma pli
    - W `Settings → Pages → Custom domain` wpisane: `automate.dbr77.com`
    - Zaznacz **Enforce HTTPS** (gdy certyfikat się wygeneruje, ~kilka–kilkanaście minut)
 
-3. **DNS** (u operatora domeny `dbr77.com` — Cloudflare / OVH / itp.) dodaj rekord:
+3. **DNS** (u operatora domeny `dbr77.com`):
 
-   | Typ   | Nazwa (host) | Wartość                | Proxy / TTL |
-   |-------|--------------|------------------------|-------------|
-   | CNAME | `automate`   | `dbr77.github.io`      | DNS only / Auto |
+   > ⚠️ **UWAGA:** rekord `automate.dbr77.com` **już istnieje** i wskazuje obecnie na
+   > serwer dbr77.com (`165.227.168.105`, CNAME → `dbr77.com`). Trzeba go **zmienić**
+   > (nie dodawać drugiego!), żeby wskazywał na GitHub Pages:
+
+   | Typ   | Nazwa (host) | Wartość (zmień na) | Proxy / TTL     |
+   |-------|--------------|--------------------|-----------------|
+   | CNAME | `automate`   | `dbr77.github.io`  | DNS only / Auto |
 
    > Jeśli DNS jest na Cloudflare — ustaw **DNS only** (szara chmurka), nie „Proxied",
    > żeby GitHub mógł wystawić własny certyfikat SSL.
+   > Po zmianie rekordu wróć do `Settings → Pages` i kliknij **Enforce HTTPS**, gdy
+   > GitHub zweryfikuje domenę i wygeneruje certyfikat (kilka–kilkanaście minut).
 
 4. Po propagacji DNS (zwykle kilkanaście minut, max do 24h) strona działa pod
    **https://automate.dbr77.com**.
