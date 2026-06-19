@@ -548,10 +548,10 @@
               <label for="ch">Your Biggest Challenge *</label>
               <select id="ch" name="challenge" required>
                 <option value="">Select…</option>
-                <option value="iot">We don't trust our production data</option>
-                <option value="twin">Validate automation before CAPEX</option>
+                <option value="iiot">We don't trust our production data</option>
+                <option value="digital_twin">Validate automation before CAPEX</option>
                 <option value="iris">Spreadsheets and meetings</option>
-                <option value="market">Need the right integrator</option>
+                <option value="marketplace">Need the right integrator</option>
                 <option value="consultify">Too many initiatives, little execution</option>
               </select>
             </div>
@@ -663,6 +663,9 @@
   heroIo.observe(heroEl);
 
   // Form
+  const HS_PORTAL_ID = '8195567';                               // HubSpot Hub ID
+  const HS_FORM_GUID = 'eece5c36-22c1-41a5-b4e7-223a14e7f328';  // HubSpot form GUID (region na1)
+
   const form = document.getElementById('rec-form');
   const val = id => (document.getElementById(id).value || '').trim();
   const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -703,8 +706,32 @@
       localStorage.setItem('dbr77_leads', JSON.stringify(leads));
     } catch(_) {}
 
-    // TODO: POST `lead` to your CRM / HubSpot endpoint here.
-    // fetch('https://your-endpoint', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(lead) });
+    // Send the lead to HubSpot (Forms API — anonymous browser submit, no secret key).
+    // Non-blocking: the lead is already saved to localStorage above, so we never trap
+    // the visitor on a slow/failed request.
+    fetch(`https://api.hsforms.com/submissions/v3/integration/submit/${HS_PORTAL_ID}/${HS_FORM_GUID}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        fields: [
+          { name: 'firstname',         value: lead.firstName },
+          { name: 'lastname',          value: lead.lastName },
+          { name: 'email',             value: lead.email },
+          { name: 'phone',             value: lead.phone },
+          { name: 'dbr77_product_interest', value: lead.challenge },
+        ],
+        context: {
+          pageUri:  window.location.href,
+          pageName: document.title,
+        },
+        legalConsentOptions: {
+          consent: {
+            consentToProcess: true,
+            text: 'I agree to DBR77 using my data to contact me about my request.',
+          },
+        },
+      }),
+    }).catch(err => console.error('HubSpot submit failed:', err));
 
     form.style.display = 'none';
     document.getElementById('rec-success').style.display = 'block';
