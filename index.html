@@ -157,6 +157,55 @@
     .ch-body span { font-size: 13px; color: var(--text-2); line-height: 1.45; }
     .ch-arrow { flex-shrink: 0; color: var(--text-3); }
 
+    /* ── 60-second audit / quiz ──────────────────────────────── */
+    .quiz, .result {
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 28px 22px;
+      background: rgba(255,255,255,.02);
+    }
+    @media (min-width: 700px) { .quiz, .result { padding: 40px; } }
+    .quiz-top { margin-bottom: 24px; }
+    .quiz-count { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--text-3); }
+    .quiz-bar { margin-top: 10px; height: 4px; border-radius: var(--pill); background: rgba(255,255,255,.08); overflow: hidden; }
+    .quiz-bar i { display: block; height: 100%; width: 20%; background: var(--orange); border-radius: var(--pill); transition: width .3s ease; }
+    .quiz-question { font-size: clamp(19px, 5vw, 27px); font-weight: 700; letter-spacing: -.02em; line-height: 1.25; margin-bottom: 20px; }
+    .quiz-opts { display: flex; flex-direction: column; gap: 10px; }
+    .quiz-opt {
+      text-align: left; font-family: inherit; font-size: 15px; color: var(--text);
+      background: rgba(255,255,255,.03); border: 1px solid var(--border); border-radius: var(--r-md);
+      padding: 16px 18px; cursor: pointer; display: flex; align-items: center; gap: 13px;
+      transition: border-color .15s, background .15s, transform .1s;
+    }
+    .quiz-opt:hover { border-color: rgba(255,255,255,.28); background: rgba(255,255,255,.05); }
+    .quiz-opt:active { transform: scale(.99); }
+    .quiz-opt .dot { width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--text-3); flex-shrink: 0; transition: border-color .15s; }
+    .quiz-opt:hover .dot { border-color: #fff; }
+    .quiz-back {
+      margin-top: 18px; background: none; border: none; color: var(--text-3);
+      font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; padding: 4px 0;
+    }
+    .quiz-back:hover { color: #fff; }
+
+    /* ── Audit result ────────────────────────────────────────── */
+    .result { position: relative; overflow: hidden; }
+    .result::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--c); }
+    .result-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--c); margin-bottom: 12px; }
+    .result-stepno { font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--c); }
+    .result h3 { font-size: clamp(24px, 6vw, 33px); font-weight: 800; letter-spacing: -.025em; margin: 6px 0 12px; }
+    .result-why { font-size: 15px; color: var(--text-2); line-height: 1.6; margin-bottom: 24px; max-width: 580px; }
+    .roadmap { display: flex; gap: 6px; margin-bottom: 26px; }
+    .rm-seg { flex: 1; text-align: center; }
+    .rm-bar { height: 5px; border-radius: var(--pill); background: rgba(255,255,255,.1); margin-bottom: 8px; transition: background .2s; }
+    .rm-seg.active .rm-bar { background: var(--c); }
+    .rm-label { font-size: 10px; font-weight: 600; letter-spacing: .03em; text-transform: uppercase; color: var(--text-3); line-height: 1.3; }
+    .rm-seg.active .rm-label { color: #fff; }
+    .rm-here { display: block; font-size: 9px; font-weight: 700; color: var(--c); letter-spacing: .06em; margin-top: 4px; }
+    .result-ctas { display: flex; flex-direction: column; gap: 10px; }
+    @media (min-width: 560px) { .result-ctas { flex-direction: row; flex-wrap: wrap; align-items: center; } }
+    .result-explore { font-size: 14px; font-weight: 600; color: var(--c); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }
+    .result-explore:hover { gap: 9px; }
+
     /* ── Product answers ─────────────────────────────────────── */
     .answers { display: flex; flex-direction: column; gap: 14px; }
     .prod {
@@ -354,13 +403,6 @@
         <text x="1" y="103" font-family="Inter, Montserrat, sans-serif" font-size="13" font-weight="300" letter-spacing="4.55" fill="#fff">INDUSTRIAL INTELLIGENCE</text>
       </svg>
     </a>
-    <nav class="hdr-nav">
-      <a href="#challenges">Challenges</a>
-      <a href="#answers">Solutions</a>
-      <a href="#check">Leave Contact</a>
-      <a href="#book">Book</a>
-    </nav>
-    <a id="hdr-cta" class="btn btn-white btn-sm" href="#book">Book a Meeting</a>
   </div>
 </header>
 
@@ -369,7 +411,7 @@
   <div class="wrap">
     <div class="eyebrow up"><i></i> Automate Chicago 2026</div>
     <h1 class="up">What Should Your Factory Fix First?</h1>
-    <p class="lead up">Answer 3 quick questions. Get matched with the right DBR77 tool. Book a short meeting with us at the booth.</p>
+    <p class="lead up">Industrial Intelligence for your factory. Pick how you'd like to start with us at the booth.</p>
     <p class="moas up">
       <span style="color:var(--iot)">Measure.</span>
       <span style="color:var(--twin)">Optimize.</span>
@@ -378,57 +420,18 @@
       <span style="color:var(--consultify)">Scale.</span>
     </p>
     <div class="hero-ctas up">
-      <a class="btn btn-white" href="#check">Leave Your Contact</a>
-      <a class="btn btn-outline" href="#book">Book a 15-Min Meeting</a>
-      <a class="btn btn-outline" href="#challenges">Start the 60-Second Check</a>
+      <a class="btn btn-white" href="#check">Leave your contact details</a>
+      <a class="btn btn-outline" href="#book">Book a meeting with us</a>
+      <a class="btn btn-outline" href="#audit">Take the 60-second test</a>
     </div>
   </div>
 </section>
 
-<!-- ── Challenges ────────────────────────────────────────────── -->
-<section id="challenges">
-  <div class="wrap">
-    <div class="sec-head up">
-      <p class="sec-eyebrow">Step 1 · Pick Your Reality</p>
-      <h2 class="sec-title">What is slowing your factory down?</h2>
-      <p class="sec-sub">Choose the challenge that sounds closest to your reality.</p>
-    </div>
-
-    <div class="challenges">
-      <a class="ch up" href="#iot">
-        <span class="ch-num" style="background:var(--iot);">1</span>
-        <span class="ch-body"><b>We don't trust our production data.</b><span>Machines are running, but the real losses are hidden.</span></span>
-        <svg class="ch-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>
-      </a>
-      <a class="ch up" href="#twin">
-        <span class="ch-num" style="background:var(--twin);">2</span>
-        <span class="ch-body"><b>We need to validate automation before CAPEX.</b><span>The investment looks promising, but the risk is too high.</span></span>
-        <svg class="ch-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>
-      </a>
-      <a class="ch up" href="#iris">
-        <span class="ch-num" style="background:var(--iris);">3</span>
-        <span class="ch-body"><b>Our plant runs on spreadsheets and meetings.</b><span>Too many systems. Too many versions of the truth.</span></span>
-        <svg class="ch-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>
-      </a>
-      <a class="ch up" href="#market">
-        <span class="ch-num" style="background:var(--market);">4</span>
-        <span class="ch-body"><b>We need the right automation integrator.</b><span>The project is clear, but comparing suppliers takes too long.</span></span>
-        <svg class="ch-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>
-      </a>
-      <a class="ch up" href="#consultify">
-        <span class="ch-num" style="background:var(--consultify);">5</span>
-        <span class="ch-body"><b>Too many initiatives, too little execution.</b><span>The strategy exists, but progress is hard to control and scale.</span></span>
-        <svg class="ch-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- ── DBR77 Answers ─────────────────────────────────────────── -->
+<!-- ── Our products ──────────────────────────────────────────── -->
 <section id="answers">
   <div class="wrap">
     <div class="sec-head up">
-      <p class="sec-eyebrow">Step 2 · DBR77 Answers</p>
+      <p class="sec-eyebrow">Our products</p>
       <h2 class="sec-title">One tool for each stage.</h2>
       <p class="sec-sub">Measure → Optimize → Manage → Automate → Scale. Each works on its own — together they form one platform.</p>
     </div>
@@ -514,15 +517,40 @@
   </div>
 </section>
 
+<!-- ── 60-second test ────────────────────────────────────────── -->
+<section id="audit">
+  <div class="wrap">
+    <div class="sec-head up">
+      <p class="sec-eyebrow">60-Second Test</p>
+      <h2 class="sec-title">Where should your transformation start?</h2>
+      <p class="sec-sub">Five quick questions — one for each product area. We point you to the one stage to fix first. No email needed to see your result.</p>
+    </div>
+
+    <!-- Quiz -->
+    <div class="quiz up" id="quiz">
+      <div class="quiz-top">
+        <span class="quiz-count" id="quiz-count">Question 1 of 5</span>
+        <div class="quiz-bar"><i id="quiz-bar-fill"></i></div>
+      </div>
+      <h3 class="quiz-question" id="quiz-question">…</h3>
+      <div class="quiz-opts" id="quiz-opts"></div>
+      <button class="quiz-back" type="button" id="quiz-back" hidden>← Back</button>
+    </div>
+
+    <!-- Result (filled in by JS) -->
+    <div class="result" id="result" hidden></div>
+  </div>
+</section>
+
 <!-- ── Recommended next step (form) ──────────────────────────── -->
 <section id="check">
   <div class="wrap">
     <div class="rec up">
       <div class="rec-grid">
         <div>
-          <p class="sec-eyebrow">Step 3 · Your Next Step</p>
-          <h2>Want a recommended next step?</h2>
-          <p class="sub">Tell us what you are working on. We will send you a practical recommendation after Automate Chicago.</p>
+          <p class="sec-eyebrow">Let's talk</p>
+          <h2>Let's talk about your company.</h2>
+          <p class="sub">Tell us a bit about your factory and what you're working on. We'll reach out — at the booth or right after the show.</p>
         </div>
         <div>
           <form class="form" id="rec-form" novalidate>
@@ -559,12 +587,12 @@
               <input id="consent" name="consent" type="checkbox" required />
               <span>I agree to DBR77 using my data to contact me about my request. *</span>
             </label>
-            <button type="submit" class="btn-submit">Send Me My Recommended Next Step</button>
+            <button type="submit" class="btn-submit">Start the conversation</button>
             <p class="f-legal">* Required. We use this only to send your recommendation. We never sell your data.</p>
           </form>
           <div class="f-success" id="rec-success">
             <h3>Got it.</h3>
-            <p>We'll send your recommended next step after Automate Chicago. See you at the booth.</p>
+            <p>Thanks — we'll be in touch soon. Come say hi at the booth.</p>
             <a href="#top" class="btn btn-outline btn-sm" style="margin-top:18px;">← Back to top</a>
           </div>
         </div>
@@ -653,12 +681,9 @@
 
   // Header "Book a Meeting" + floating back-to-top appear after the hero scrolls out of view
   const heroEl = document.querySelector('.hero');
-  const hdrCta = document.getElementById('hdr-cta');
   const toTop = document.getElementById('to-top');
   const heroIo = new IntersectionObserver(([e]) => {
-    const past = !e.isIntersecting;
-    hdrCta.classList.toggle('show', past);
-    toTop.classList.toggle('show', past);
+    toTop.classList.toggle('show', !e.isIntersecting);
   }, { rootMargin: '-60px 0px 0px 0px' });
   heroIo.observe(heroEl);
 
@@ -740,6 +765,144 @@
   // Clear the invalid state as the visitor corrects a field
   form.querySelectorAll('input, select').forEach(el =>
     el.addEventListener('input', () => el.classList.remove('invalid')));
+
+  // ── 60-second audit ─────────────────────────────────────────
+  (function () {
+    // Each stage maps to one DBR77 tool. 'key' matches the form's challenge dropdown.
+    const STAGES = [
+      { key:'iiot',       step:'1 · Measure',  name:'Industrial IoT', c:'--iot',        url:'https://iot.dbr77.com/',
+        why:"You can't optimize what you can't see. Start by capturing production signals you actually trust — downtime, OEE and real losses." },
+      { key:'digital_twin', step:'2 · Optimize', name:'Digital Twin', c:'--twin',       url:'https://dt.dbr77.com/',
+        why:'Prove the business case in a virtual model before you commit CAPEX. Test layouts and scenarios with zero risk on the floor.' },
+      { key:'iris',       step:'3 · Manage',   name:'IRIS',           c:'--iris',       url:'https://iris.dbr77.com/',
+        why:'Replace spreadsheets, email and meetings with one AI-native Plant Operating System for ops, quality and maintenance.' },
+      { key:'marketplace', step:'4 · Automate', name:'Marketplace',   c:'--market',     url:'https://marketplace.dbr77.com/marketplace',
+        why:'Get matched with verified integrators and compare proposals fast — without the slow, repeated tendering.' },
+      { key:'consultify', step:'5 · Scale',    name:'Consultify',     c:'--consultify', url:'https://consultify.ai/',
+        why:'Turn scattered initiatives into one executable program — prioritized, with owners and tracked ROI.' },
+    ];
+
+    // One question per stage. Higher pain score = more need to start there.
+    const QUESTIONS = [
+      { stage:0, q:'How reliable is your real-time production data?', opts:[
+        { t:'We have live OEE & downtime data we trust', p:0 },
+        { t:"We collect some data but don't fully trust it", p:2 },
+        { t:'Mostly manual logs and gut feel', p:3 } ] },
+      { stage:1, q:'Before a big automation or layout investment, how do you validate it?', opts:[
+        { t:'We simulate and model it first', p:0 },
+        { t:'We rely on vendor quotes and estimates', p:2 },
+        { t:'We commit and hope it works on the floor', p:3 } ] },
+      { stage:2, q:'How is your plant run day-to-day?', opts:[
+        { t:'One connected system for ops, quality & maintenance', p:0 },
+        { t:"Several systems that don't talk to each other", p:2 },
+        { t:'Spreadsheets, email and meetings', p:3 } ] },
+      { stage:3, q:'When you need an automation integrator, how do you find one?', opts:[
+        { t:'We have trusted partners on tap', p:0 },
+        { t:'We re-tender every time — slow and painful', p:2 },
+        { t:"We don't really know who to ask", p:3 } ] },
+      { stage:4, q:'How well do your transformation initiatives get executed?', opts:[
+        { t:'Clear roadmap, owners and ROI tracked', p:0 },
+        { t:'Plenty of ideas, execution is patchy', p:2 },
+        { t:'Initiatives stall and we lose track', p:3 } ] },
+    ];
+
+    const quizEl   = document.getElementById('quiz');
+    const resultEl = document.getElementById('result');
+    const countEl  = document.getElementById('quiz-count');
+    const barEl    = document.getElementById('quiz-bar-fill');
+    const qEl      = document.getElementById('quiz-question');
+    const optsEl   = document.getElementById('quiz-opts');
+    const backEl   = document.getElementById('quiz-back');
+    if (!quizEl) return;
+
+    let idx = 0;
+    const answers = new Array(QUESTIONS.length).fill(null);
+
+    function render() {
+      const q = QUESTIONS[idx];
+      countEl.textContent = 'Question ' + (idx + 1) + ' of ' + QUESTIONS.length;
+      barEl.style.width = ((idx + 1) / QUESTIONS.length * 100) + '%';
+      qEl.textContent = q.q;
+      optsEl.innerHTML = '';
+      q.opts.forEach(o => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'quiz-opt';
+        b.innerHTML = '<span class="dot"></span><span></span>';
+        b.lastChild.textContent = o.t;
+        b.addEventListener('click', () => choose(o.p));
+        optsEl.appendChild(b);
+      });
+      backEl.hidden = idx === 0;
+    }
+
+    function choose(p) {
+      answers[idx] = p;
+      if (idx < QUESTIONS.length - 1) { idx++; render(); }
+      else finish();
+    }
+
+    backEl.addEventListener('click', () => { if (idx > 0) { idx--; render(); } });
+
+    function finish() {
+      // Recommend the weakest stage (highest pain). Ties → earliest stage in the sequence.
+      let best = 0, bestPain = -1;
+      QUESTIONS.forEach((q, i) => {
+        const pain = answers[i] || 0;
+        if (pain > bestPain) { bestPain = pain; best = q.stage; }
+      });
+      if (bestPain === 0) best = 4; // everything healthy → talk about scaling
+      showResult(best, bestPain === 0);
+    }
+
+    function showResult(stageIdx, healthy) {
+      const s = STAGES[stageIdx];
+      const why = healthy
+        ? "You're ahead of most plants — the foundations are solid. The next lever is scale: turn what works into a repeatable, tracked program."
+        : s.why;
+      const roadmap = STAGES.map((st, i) =>
+        '<div class="rm-seg' + (i === stageIdx ? ' active' : '') + '" style="--c:var(' + st.c + ')">' +
+          '<div class="rm-bar"></div>' +
+          '<div class="rm-label">' + st.step.split('· ')[1] + '</div>' +
+          (i === stageIdx ? '<span class="rm-here">Start here</span>' : '') +
+        '</div>').join('');
+
+      resultEl.style.setProperty('--c', 'var(' + s.c + ')');
+      resultEl.innerHTML =
+        '<p class="result-eyebrow">Your recommended starting point</p>' +
+        '<span class="result-stepno">Step ' + s.step + '</span>' +
+        '<h3>' + s.name + '</h3>' +
+        '<p class="result-why">' + why + '</p>' +
+        '<div class="roadmap">' + roadmap + '</div>' +
+        '<div class="result-ctas">' +
+          '<a class="btn btn-white" id="result-contact" href="#check">Get my recommendation by email →</a>' +
+          '<a class="btn btn-outline" href="#book">Book a 15-min meeting</a>' +
+          '<a class="result-explore" href="' + s.url + '" target="_blank" rel="noopener">Explore ' + s.name +
+            ' <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>' +
+        '</div>' +
+        '<button class="quiz-back" type="button" id="result-retake" style="margin-top:22px;">↺ Retake the audit</button>';
+
+      quizEl.hidden = true;
+      resultEl.hidden = false;
+      resultEl.classList.add('in');
+
+      // Pre-fill the existing challenge field (value only — form structure untouched)
+      const sel = document.getElementById('ch');
+      if (sel) { sel.value = s.key; }
+
+      document.getElementById('result-contact').addEventListener('click', () => {
+        const sel2 = document.getElementById('ch');
+        if (sel2) { sel2.value = s.key; sel2.dispatchEvent(new Event('change', { bubbles: true })); }
+      });
+      document.getElementById('result-retake').addEventListener('click', () => {
+        idx = 0; answers.fill(null);
+        resultEl.hidden = true; quizEl.hidden = false; render();
+        quizEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    }
+
+    render();
+  })();
 </script>
 </body>
 </html>
