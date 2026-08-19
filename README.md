@@ -1,7 +1,10 @@
-# AutomateUSA — Landing Page (Automate Chicago 2026)
+# AutomateUSA — Landing Page (IMTS Chicago 2026)
 
-Statyczna strona (landing page) DBR77 na targi **Automate 2026 w Chicago**.
-Cel: podpiąć ją pod publiczną domenę **`automate.dbr77.com`**.
+Statyczna strona (landing page) DBR77 na targi **IMTS 2026 w Chicago**.
+Cel: kampania „Bring us a real manufacturing problem” pod publiczną domeną **`automate.dbr77.com`**.
+
+Najważniejsze dane wydarzenia: **14–19 września 2026**, McCormick Place,
+North Building, **Booth 236384**.
 
 Strona to czysty **HTML/CSS/JS w jednym pliku** (`index.html`) + zdjęcia zespołu
 w `team/`. Brak backendu, brak build-stepu — wystarczy serwować pliki statycznie.
@@ -16,7 +19,8 @@ AutomateUSA/
 ├── team/             ← zdjęcia zespołu (Torian, Justyna, Piotr)
 │   ├── torian.png
 │   ├── justyna.png
-│   └── piotr.png
+│   ├── piotr.png
+│   └── pawel-mroczkowski.jpg
 ├── CNAME             ← domena dla GitHub Pages: automate.dbr77.com
 └── README.md         ← ten plik
 ```
