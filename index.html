@@ -84,6 +84,31 @@
     .logo { display: flex; align-items: center; text-decoration: none; line-height: 1; }
     .logo svg { height: 30px; width: auto; display: block; }
     @media (min-width: 700px) { .logo svg { height: 34px; } }
+    .event-rail { display: flex; align-items: center; gap: 7px; margin-left: auto; }
+    .event-story {
+      --story-accent: var(--orange);
+      position: relative; min-width: 98px; height: 46px; padding: 6px 22px 6px 11px;
+      display: flex; flex-direction: column; justify-content: center;
+      color: #fff; text-decoration: none; border: 1px solid rgba(255,255,255,.14);
+      border-radius: 12px; background: rgba(255,255,255,.045); overflow: hidden;
+      transition: border-color .18s, background .18s, transform .15s;
+    }
+    .event-story::before {
+      content: ''; position: absolute; inset: 0 auto 0 0; width: 3px;
+      background: var(--story-accent); box-shadow: 0 0 14px var(--story-accent);
+    }
+    .event-story::after {
+      content: '↗'; position: absolute; right: 8px; top: 50%; transform: translateY(-50%);
+      color: var(--text-3); font-size: 13px;
+    }
+    .event-story.is-live:hover { border-color: color-mix(in srgb, var(--story-accent) 60%, #fff 10%); background: rgba(255,255,255,.075); transform: translateY(-1px); }
+    .event-story[aria-disabled="true"] { cursor: default; }
+    .event-story[aria-disabled="true"]::after { content: '···'; }
+    .event-story-kicker { color: var(--story-accent); font-size: 8px; line-height: 1.15; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+    .event-story-title { font-size: 11px; line-height: 1.25; font-weight: 700; white-space: nowrap; }
+    .event-story-meta { display: none; color: var(--text-2); font-size: 9px; line-height: 1.2; white-space: nowrap; }
+    .event-story--tour { --story-accent: #10b981; }
+    .event-story--iex { --story-accent: #3b82f6; }
     /* header CTA stays hidden while the hero is on screen, then fades in */
     #hdr-cta { opacity: 0; visibility: hidden; transform: translateY(-6px); transition: opacity .25s ease, transform .25s ease, visibility .25s; pointer-events: none; }
     #hdr-cta.show { opacity: 1; visibility: visible; transform: none; pointer-events: auto; }
@@ -418,11 +443,19 @@
       .booth .btn { min-width: 240px; }
       .foot { flex-direction: row; justify-content: space-between; text-align: left; }
       .process-grid { grid-template-columns: repeat(3, 1fr); }
+      .event-rail { gap: 10px; }
+      .event-story { min-width: 174px; height: 52px; padding: 7px 30px 7px 14px; border-radius: 14px; }
+      .event-story-kicker { font-size: 8.5px; }
+      .event-story-title { font-size: 12px; }
+      .event-story-meta { display: block; }
     }
     @media (min-width: 980px) {
       .answers { grid-template-columns: repeat(3, 1fr); }
     }
     @media (max-width: 699px) {
+      .wrap.nav { padding-left: 14px; padding-right: 14px; }
+      .logo svg { height: 26px; }
+      .event-story-title { max-width: 72px; overflow: hidden; text-overflow: ellipsis; }
       .hero {
         background:
           linear-gradient(0deg, var(--bg) 0%, rgba(4,10,24,.92) 52%, rgba(4,10,24,.58) 100%),
@@ -447,6 +480,18 @@
         <text x="1" y="103" font-family="Inter, Montserrat, sans-serif" font-size="13" font-weight="300" letter-spacing="4.55" fill="#fff">INDUSTRIAL INTELLIGENCE</text>
       </svg>
     </a>
+    <nav class="event-rail" aria-label="Upcoming DBR77 events">
+      <a class="event-story event-story--tour" data-event-link data-local-href="../../AI_TOUR_USA_2026/site/index.html" data-public-href="" aria-disabled="true">
+        <span class="event-story-kicker">USA · Sep 28–Oct 5</span>
+        <span class="event-story-title">AI Factory Tour</span>
+        <span class="event-story-meta" data-event-status>Preview link soon</span>
+      </a>
+      <a class="event-story event-story--iex" data-event-link data-local-href="" data-public-href="" aria-disabled="true">
+        <span class="event-story-kicker">Chicago · Oct 8</span>
+        <span class="event-story-title">IEX 2026</span>
+        <span class="event-story-meta" data-event-status>Coming soon</span>
+      </a>
+    </nav>
   </div>
 </header>
 
@@ -770,6 +815,22 @@
 </footer>
 
 <script>
+  // Event cards: local previews are clickable; production stays fail-safe until public URLs are assigned.
+  const isLocalPreview = location.protocol === 'file:' || ['localhost', '127.0.0.1'].includes(location.hostname);
+  document.querySelectorAll('[data-event-link]').forEach(card => {
+    const href = isLocalPreview ? card.dataset.localHref : card.dataset.publicHref;
+    if (href) {
+      card.href = href;
+      card.classList.add('is-live');
+      card.removeAttribute('aria-disabled');
+      const status = card.querySelector('[data-event-status]');
+      if (status && isLocalPreview) status.textContent = 'Open local preview';
+    } else {
+      card.setAttribute('aria-disabled', 'true');
+      card.addEventListener('click', event => event.preventDefault());
+    }
+  });
+
   // Fade-up
   const io = new IntersectionObserver(es => es.forEach(e => {
     if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
