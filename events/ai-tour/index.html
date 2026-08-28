@@ -59,7 +59,7 @@
     <section id="iex"><div class="wrap"><div class="iex-promo"><div><div class="iex-promo-tag">The tour continues online</div><h2>IEX 2026 — Physical AI in Manufacturing</h2><p>The factory challenges collected across the Carolinas become a global live broadcast from Charlotte. Five expert conversations. Humanoids, robots and cobots, manufacturing AI, system integration and factory decision-making.</p><div class="iex-facts"><div class="iex-fact"><b>October 8, 2026</b>Live from Charlotte</div><div class="iex-fact"><b>Free online access</b>Global manufacturing audience</div><div class="iex-fact"><b>Five expert blocks</b>One Physical AI report</div></div></div><div class="iex-promo-actions"><a class="btn btn-blue" href="../iex/">Explore IEX 2026 →</a><a class="btn btn-secondary" href="../iex/#register">Register interest</a></div></div></div></section>
 
     <section id="apply"><div class="wrap">
-      <div class="section-head"><div class="kicker">Save a workshop date</div><h2>Choose the city and date that work best for you.</h2><p>Complete the short form to record your preferred stop and block the provisional time. The current local version previews the calendar handoff; CRM routing and final privacy notices still need to be connected before launch.</p></div>
+      <div class="section-head"><div class="kicker">Save a workshop date</div><h2>Choose the city and date that work best for you.</h2><p>Complete the short form to record your preferred stop. Your application will be sent securely to DBR77 in HubSpot, and you can immediately add the provisional workshop time to your calendar.</p></div>
       <div class="form-shell"><div class="form-tabs"><button class="tab active" data-panel="attend">Save the date</button><button class="tab" data-panel="partner">Partner with the tour</button></div>
         <form class="form-panel" id="attend"><div class="form-intro"><h3>Save a workshop date</h3><p>Designed primarily for C-level, operations and plant leaders responsible for manufacturing performance and investment decisions.</p></div>
           <div class="grid2"><div class="field"><label for="first">First name</label><input id="first" name="firstName" required autocomplete="given-name"></div><div class="field"><label for="last">Last name</label><input id="last" name="lastName" required autocomplete="family-name"></div></div>
@@ -68,10 +68,11 @@
           <div class="field"><label for="topic">Primary manufacturing priority</label><select id="topic" name="priority"><option>Production losses and downtime</option><option>Manufacturing data and AI</option><option>Automation and robotics</option><option>Quality and maintenance</option><option>Process and investment decisions</option><option>Workforce and operational execution</option></select></div>
           <div class="field"><label for="summary">Optional challenge summary</label><textarea id="summary" name="challenge" placeholder="Describe the process, impact and desired result. Do not include confidential technical files."></textarea></div>
           <div class="checks"><label class="check"><input type="checkbox" required><span>I confirm that I am authorized to submit this information for workshop administration.</span></label><label class="check"><input type="checkbox" name="solutionsContact"><span>I would like DBR77 to contact me separately about relevant manufacturing solutions. Optional.</span></label></div>
-          <button class="btn btn-primary" type="submit">Save my date</button><p class="form-note">Local prototype only — nothing is transmitted. Submitting this preview does not confirm a seat.</p>
-          <div class="preview-success" id="attend-success"><strong>Date ready to add.</strong><p>Your selected workshop is a provisional calendar hold. Venue and attendance details will follow after confirmation.</p><div class="calendar-actions"><a class="btn btn-secondary calendar-google" href="#" target="_blank" rel="noopener">Google Calendar</a><a class="btn btn-secondary calendar-outlook" href="#" target="_blank" rel="noopener">Outlook / Microsoft 365</a><a class="btn btn-secondary calendar-ics" href="#" download>Download .ics</a></div></div>
+          <button class="btn btn-primary" type="submit">Save my date</button><p class="form-note">Submitting records your application in DBR77 HubSpot. It does not yet confirm a seat; venue and attendance details will follow.</p>
+          <div class="preview-success" id="attend-success"><strong>Your application has been recorded.</strong><p>Your selected workshop is a provisional calendar hold. Venue and attendance details will follow after confirmation.</p><div class="calendar-actions"><a class="btn btn-secondary calendar-google" href="#" target="_blank" rel="noopener">Google Calendar</a><a class="btn btn-secondary calendar-outlook" href="#" target="_blank" rel="noopener">Outlook / Microsoft 365</a><a class="btn btn-secondary calendar-ics" href="#" download>Download .ics</a></div></div>
+          <div class="preview-success" id="attend-error"><strong>We could not record your application.</strong><p>Please try again or contact the DBR77 team directly. No confirmation has been issued.</p></div>
         </form>
-        <form class="form-panel" id="partner" hidden><div class="form-intro"><h3>Partner enquiry</h3><p>For regional hosts, venues, manufacturing networks and selected technology partners.</p></div><div class="grid2"><div class="field"><label for="pname">Contact name</label><input id="pname" name="contactName" required></div><div class="field"><label for="porg">Organization</label><input id="porg" name="organization" required></div></div><div class="grid2"><div class="field"><label for="pemail">Business email</label><input id="pemail" name="email" type="email" required></div><div class="field"><label for="ptype">Partner type</label><select id="ptype" name="partnerType"><option>Economic development</option><option>College or university</option><option>Manufacturing association / MEP</option><option>Venue partner</option><option>Technology partner</option><option>Other</option></select></div></div><div class="field"><label for="pmessage">How would you like to contribute?</label><textarea id="pmessage" name="message" required></textarea></div><label class="check"><input type="checkbox" required><span>I agree to DBR77 using this information to respond to this partnership enquiry.</span></label><button class="btn btn-primary" type="submit" style="margin-top:16px">Save local partner enquiry</button><p class="form-note">Local prototype only — nothing is transmitted.</p><div class="preview-success">Partner enquiry saved locally. External routing will be connected in the launch version.</div></form>
+        <form class="form-panel" id="partner" hidden><div class="form-intro"><h3>Partner enquiry</h3><p>For regional hosts, venues, manufacturing networks and selected technology partners.</p></div><div class="grid2"><div class="field"><label for="pfirst">First name</label><input id="pfirst" name="firstName" required autocomplete="given-name"></div><div class="field"><label for="plast">Last name</label><input id="plast" name="lastName" required autocomplete="family-name"></div></div><div class="grid2"><div class="field"><label for="porg">Organization</label><input id="porg" name="organization" required autocomplete="organization"></div><div class="field"><label for="pemail">Business email</label><input id="pemail" name="email" type="email" required autocomplete="email"></div></div><div class="field"><label for="ptype">Partner type</label><select id="ptype" name="partnerType"><option>Economic development</option><option>College or university</option><option>Manufacturing association / MEP</option><option>Venue partner</option><option>Technology partner</option><option>Other</option></select></div><div class="field"><label for="pmessage">How would you like to contribute?</label><textarea id="pmessage" name="message" required></textarea></div><label class="check"><input type="checkbox" required><span>I agree to DBR77 using this information to respond to this partnership enquiry.</span></label><button class="btn btn-primary" type="submit" style="margin-top:16px">Send partner enquiry</button><p class="form-note">Submitting records this enquiry in the dedicated AI Tour registration stream in DBR77 HubSpot.</p><div class="preview-success" id="partner-success"><strong>Your enquiry has been recorded.</strong><p>The DBR77 team will review it and contact you using the business email provided.</p></div><div class="preview-success" id="partner-error"><strong>We could not record your enquiry.</strong><p>Please try again or contact the DBR77 team directly.</p></div></form>
       </div>
     </div></section>
 
@@ -111,7 +112,69 @@
       const ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//DBR77//AI Tour 2026//EN','BEGIN:VEVENT','UID:'+key+'-2026@aitour.dbr77.com','DTSTART;TZID=America/New_York:'+start,'DTEND;TZID=America/New_York:'+end,'SUMMARY:'+title,'LOCATION:Venue to be confirmed · '+workshop.city,'DESCRIPTION:'+calendarDescription,'STATUS:TENTATIVE','END:VEVENT','END:VCALENDAR'].join('\r\n');
       const success=document.querySelector('#attend-success');success.querySelector('.calendar-google').href=google.toString();success.querySelector('.calendar-outlook').href=outlook.toString();success.querySelector('.calendar-ics').href=URL.createObjectURL(new Blob([ics],{type:'text/calendar;charset=utf-8'}));success.querySelector('.calendar-ics').download='manufacturing-ai-in-action-'+key+'.ics';
     }
-    document.querySelectorAll('.form-panel').forEach(form=>form.addEventListener('submit',event=>{event.preventDefault();if(!form.reportValidity())return;const data=Object.fromEntries(new FormData(form));try{localStorage.setItem('dbr77_ai_tour_'+form.id,JSON.stringify({data,savedAt:new Date().toISOString()}))}catch(e){}if(form.id==='attend')calendarLinks(data.location);form.querySelector('.preview-success').classList.add('show')}));
+    const HS_PORTAL_ID='8195567';
+    const HS_FORM_GUID='10fb95a0-021f-4d5e-b835-96c0033ecebb';
+    const attendForm=document.querySelector('#attend');
+    attendForm.addEventListener('submit',async event=>{
+      event.preventDefault();
+      if(!attendForm.reportValidity())return;
+      const data=Object.fromEntries(new FormData(attendForm));
+      const submitButton=attendForm.querySelector('button[type="submit"]');
+      const success=document.querySelector('#attend-success');
+      const error=document.querySelector('#attend-error');
+      submitButton.disabled=true;submitButton.textContent='Recording…';success.classList.remove('show');error.classList.remove('show');
+      const eventDetails=[
+        'Campaign: Manufacturing AI in Action — Carolinas 2026',
+        'Preferred workshop: '+(workshops[data.location]?.city||data.location),
+        'Role: '+data.role,
+        'Company: '+data.company,
+        'Priority: '+data.priority,
+        'Challenge: '+(data.challenge||'Not provided'),
+        'Solutions follow-up consent: '+(data.solutionsContact?'Yes':'No')
+      ].join('\n');
+      try{
+        const response=await fetch(`https://api.hsforms.com/submissions/v3/integration/submit/${HS_PORTAL_ID}/${HS_FORM_GUID}`,{
+          method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
+            fields:[
+              {name:'firstname',value:data.firstName},
+              {name:'lastname',value:data.lastName},
+              {name:'email',value:data.email},
+              {name:'company',value:data.company},
+              {name:'jobtitle',value:data.role}
+            ],
+            context:{pageUri:window.location.href,pageName:document.title+' | '+eventDetails},
+            legalConsentOptions:{consent:{consentToProcess:true,text:'I agree to DBR77 processing my information to administer my Manufacturing AI in Action workshop application.'}}
+          })
+        });
+        if(!response.ok)throw new Error('HubSpot submission failed: '+response.status);
+        try{localStorage.setItem('dbr77_ai_tour_attend',JSON.stringify({data,savedAt:new Date().toISOString(),hubspotSubmitted:true}))}catch(e){}
+        calendarLinks(data.location);success.classList.add('show');attendForm.reset();
+      }catch(submitError){console.error(submitError);error.classList.add('show')}
+      finally{submitButton.disabled=false;submitButton.textContent='Save my date'}
+    });
+    const partnerForm=document.querySelector('#partner');
+    partnerForm.addEventListener('submit',async event=>{
+      event.preventDefault();if(!partnerForm.reportValidity())return;
+      const data=Object.fromEntries(new FormData(partnerForm));
+      const submitButton=partnerForm.querySelector('button[type="submit"]');
+      const success=document.querySelector('#partner-success');
+      const error=document.querySelector('#partner-error');
+      submitButton.disabled=true;submitButton.textContent='Sending…';success.classList.remove('show');error.classList.remove('show');
+      const partnerDetails=['Campaign: Manufacturing AI in Action — Carolinas 2026','Journey: Partner enquiry','Partner type: '+data.partnerType,'Organization: '+data.organization,'Contribution: '+data.message].join('\n');
+      try{
+        const response=await fetch(`https://api.hsforms.com/submissions/v3/integration/submit/${HS_PORTAL_ID}/${HS_FORM_GUID}`,{
+          method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
+            fields:[{name:'firstname',value:data.firstName},{name:'lastname',value:data.lastName},{name:'email',value:data.email},{name:'company',value:data.organization},{name:'jobtitle',value:data.partnerType+' partner'}],
+            context:{pageUri:window.location.href,pageName:document.title+' | '+partnerDetails},
+            legalConsentOptions:{consent:{consentToProcess:true,text:'I agree to DBR77 processing my information to respond to this AI Tour partnership enquiry.'}}
+          })
+        });
+        if(!response.ok)throw new Error('HubSpot submission failed: '+response.status);
+        try{localStorage.setItem('dbr77_ai_tour_partner',JSON.stringify({data,savedAt:new Date().toISOString(),hubspotSubmitted:true}))}catch(e){}
+        success.classList.add('show');partnerForm.reset();
+      }catch(submitError){console.error(submitError);error.classList.add('show')}
+      finally{submitButton.disabled=false;submitButton.textContent='Send partner enquiry'}
+    });
   </script>
 </body>
 </html>
