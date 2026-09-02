@@ -344,7 +344,7 @@
     }
     .btn-submit:hover { background: #ececec; }
     .f-legal { font-size: 11px; color: var(--text-3); text-align: center; margin-top: 10px; line-height: 1.5; }
-    .f-success { display: none; text-align: center; padding: 24px 0; }
+    .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}.f-success { display: none; text-align: center; padding: 24px 0; }
     .f-success h3 { font-size: 19px; font-weight: 700; color: var(--iot); margin-bottom: 8px; }
     .f-success p { font-size: 14px; color: var(--text-2); }
 
@@ -710,12 +710,13 @@
                 <option value="consultify">Too many initiatives, little execution</option>
               </select>
             </div>
+            <div class="hp" aria-hidden="true"><label>Website<input type="text" name="website" tabindex="-1" autocomplete="off" /></label></div>
             <label class="f-consent">
               <input id="consent" name="consent" type="checkbox" required />
               <span>I agree to DBR77 using my data to contact me about this IMTS request. *</span>
             </label>
             <button type="submit" class="btn-submit">Start the conversation</button>
-            <p class="f-legal">* Required. We use this information to respond to your IMTS request and do not sell your data.</p>
+            <p class="f-legal">* Required. We use this information to respond to your IMTS request and do not sell your data. Read our <a href="https://dbr77.com/privacy-policy/">privacy policy</a>.</p>
           </form>
           <div class="f-success" id="rec-success">
             <h3>Got it.</h3>
@@ -845,13 +846,213 @@
   }, { rootMargin: '-60px 0px 0px 0px' });
   heroIo.observe(heroEl);
 
-  // Form
-  const HS_PORTAL_ID = '8195567';                               // HubSpot Hub ID
-  const HS_FORM_GUID = 'eece5c36-22c1-41a5-b4e7-223a14e7f328';  // HubSpot form GUID (region na1)
+  /* dbr77:lead-capture:start */
+/* Canonical source. Do not edit the copies inlined in the three index.html files —
+   edit this file and run: python3 tools/sync-lead-block.py */
+(function () {
+  // Use Railway's verified TLS endpoint until the custom leads.dbr77.com
+  // certificate is active. A broken custom certificate must never block leads.
+  var BASE = window.DBR77_LEADS_API || 'https://api-production-26412.up.railway.app';
+  var ENDPOINT = BASE + '/v1/leads';
+  var ATTR_KEY = 'dbr77_attr';
+  var QUEUE_KEY = 'dbr77_leads_pending';
+  var TRACKED = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'gclid', 'fbclid', 'li_fat_id'];
+  var lastCta = null;
 
+  function clip(value, max) {
+    return String(value == null ? '' : value).slice(0, max);
+  }
+
+  /* First touch wins: a visitor who lands from LinkedIn and then clicks around the
+     page keeps linkedin as the source, instead of the last internal anchor. */
+  function firstTouch() {
+    try {
+      var stored = JSON.parse(sessionStorage.getItem(ATTR_KEY) || 'null');
+      if (stored) return stored;
+    } catch (e) {}
+
+    var params = new URLSearchParams(location.search);
+    var utm = {};
+    TRACKED.forEach(function (key) {
+      var value = params.get(key);
+      if (value) utm[key.replace(/^utm_/, '')] = clip(value, 300);
+    });
+
+    var referrer = document.referrer || '';
+    var attribution = {
+      utm: utm,
+      landingPage: clip(location.href, 500)
+    };
+    if (referrer && referrer.indexOf(location.origin) !== 0) {
+      attribution.referrer = clip(referrer, 500);
+    }
+
+    try {
+      sessionStorage.setItem(ATTR_KEY, JSON.stringify(attribution));
+    } catch (e) {}
+    return attribution;
+  }
+
+  var firstTouchAttribution = firstTouch();
+
+  /* Records which in-page CTA the visitor used to reach the form. Delegated so it
+     covers every anchor on the page without touching any markup — the IEX page alone
+     has fourteen different links into #register. */
+  document.addEventListener(
+    'click',
+    function (event) {
+      var anchor = event.target && event.target.closest ? event.target.closest('a[href^="#"]') : null;
+      if (!anchor) return;
+      var section = anchor.closest('section');
+      // A card-style CTA wraps a number, a title and a blurb; the title alone is the
+      // useful label, so prefer a heading over the anchor's full text content.
+      var title = anchor.querySelector('h1,h2,h3,h4,b,strong');
+      var source = title || anchor;
+      var text = clip((source.textContent || '').replace(/\s+/g, ' ').trim(), 80);
+      if (!text) return;
+      lastCta = { text: text };
+      if (section && section.id) lastCta.section = section.id;
+    },
+    true
+  );
+
+  window.dbr77Attribution = function (extra) {
+    var attribution = {
+      utm: firstTouchAttribution.utm || {},
+      landingPage: firstTouchAttribution.landingPage,
+      pageUrl: clip(location.href, 500),
+      pageTitle: clip(document.title, 300)
+    };
+    if (firstTouchAttribution.referrer) attribution.referrer = firstTouchAttribution.referrer;
+    if (lastCta) attribution.cta = lastCta;
+    if (extra) {
+      Object.keys(extra).forEach(function (key) {
+        if (extra[key]) attribution[key] = extra[key];
+      });
+    }
+    return attribution;
+  };
+
+  /* Epoch ms when the page loaded, sent as startedAt so the API can reject
+     submissions that arrive faster than a human could type. */
+  window.dbr77LoadedAt = Date.now();
+
+  function enqueue(payload) {
+    try {
+      var queued = JSON.parse(localStorage.getItem(QUEUE_KEY) || '[]');
+      queued.push(payload);
+      localStorage.setItem(QUEUE_KEY, JSON.stringify(queued.slice(-20)));
+    } catch (e) {}
+  }
+
+  /* Wrapped so a synchronous throw (no fetch, blocked request, bad JSON) becomes a
+     rejected promise. Otherwise it escapes the submit handler and the button stays
+     stuck on "Sending…" with the visitor's data going nowhere. */
+  function send(payload) {
+    try {
+      return fetch(ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+        keepalive: true
+      });
+    } catch (e) {
+      return Promise.reject(e);
+    }
+  }
+
+  /* Success is reported only after the API confirms receipt. Network/server failures
+     may be queued as a backup, but the UI must never tell the visitor they registered. */
+  window.dbr77SubmitLead = function (payload) {
+    return send(payload)
+      .then(function (response) {
+        if (response.ok) return { ok: true };
+        if (response.status === 400) {
+          return response
+            .json()
+            .then(function (body) {
+              return { ok: false, errors: (body && body.errors) || {} };
+            })
+            .catch(function () {
+              return { ok: false, errors: {} };
+            });
+        }
+        enqueue(payload);
+        return { ok: false, queued: true, errors: { _: 'We could not send your request. Please try again.' } };
+      })
+      .catch(function () {
+        enqueue(payload);
+        return { ok: false, queued: true, errors: { _: 'We could not send your request. Please check your connection and try again.' } };
+      });
+  };
+
+  /* Drain whatever was captured while the API was unreachable. */
+  (function drain() {
+    var queued;
+    try {
+      queued = JSON.parse(localStorage.getItem(QUEUE_KEY) || '[]');
+    } catch (e) {
+      return;
+    }
+    if (!queued.length) return;
+    try {
+      localStorage.removeItem(QUEUE_KEY);
+    } catch (e) {}
+
+    queued.forEach(function (payload) {
+      send(payload)
+        .then(function (response) {
+          if (!response.ok && response.status !== 400) enqueue(payload);
+        })
+        .catch(function () {
+          enqueue(payload);
+        });
+    });
+  })();
+
+  /* Shared submit plumbing: disables the button, sends, and hands the result back. */
+  window.dbr77HandleSubmit = function (options) {
+    var button = options.form.querySelector('button[type="submit"]');
+    var original = button ? button.textContent : '';
+    if (button) {
+      button.disabled = true;
+      button.textContent = 'Sending…';
+    }
+
+    // The catch covers the submission only. If it also wrapped the caller's
+    // onSuccess, a throw in there would re-queue an already-delivered lead and
+    // fire the success path twice.
+    return Promise.resolve()
+      .then(function () {
+        return window.dbr77SubmitLead(options.payload);
+      })
+      .catch(function () {
+        // Keep a backup, but do not claim that an unconfirmed lead was accepted.
+        enqueue(options.payload);
+        return { ok: false, queued: true, errors: { _: 'We could not send your request. Please try again.' } };
+      })
+      .then(function (result) {
+        if (result.ok) options.onSuccess(result);
+        else options.onError(result.errors || {});
+        return result;
+      })
+      .finally(function () {
+        if (button) {
+          button.disabled = false;
+          button.textContent = original;
+        }
+      });
+  };
+})();
+/* dbr77:lead-capture:end */
+
+  // Form
   const form = document.getElementById('rec-form');
   const val = id => (document.getElementById(id).value || '').trim();
   const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const legal = document.querySelector('.f-legal');
+  const legalText = legal ? legal.textContent : '';
+  const consentText = document.querySelector('.f-consent span').textContent.replace(/\s*\*\s*$/, '').trim();
 
   form.addEventListener('submit', e => {
     e.preventDefault();
@@ -871,53 +1072,44 @@
     if (!consentEl.checked && !firstBad) firstBad = consentEl;
     if (firstBad) { firstBad.focus(); return; }
 
-    // Collect the real data the visitor entered
-    const lead = {
-      firstName: val('fname'),
-      lastName:  val('lname'),
-      email:     val('email'),
-      phone:     val('phone'),
-      challenge: val('ch'),
-      consent:   consentEl.checked,
-      ts:        new Date().toISOString(),
-      source:    'imts-chicago-2026'
-    };
-
-    try {
-      const leads = JSON.parse(localStorage.getItem('dbr77_leads') || '[]');
-      leads.push(lead);
-      localStorage.setItem('dbr77_leads', JSON.stringify(leads));
-    } catch(_) {}
-
-    // Send the lead to HubSpot (Forms API — anonymous browser submit, no secret key).
-    // Non-blocking: the lead is already saved to localStorage above, so we never trap
-    // the visitor on a slow/failed request.
-    fetch(`https://api.hsforms.com/submissions/v3/integration/submit/${HS_PORTAL_ID}/${HS_FORM_GUID}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        fields: [
-          { name: 'firstname',         value: lead.firstName },
-          { name: 'lastname',          value: lead.lastName },
-          { name: 'email',             value: lead.email },
-          { name: 'phone',             value: lead.phone },
-          { name: 'dbr77_product_interest', value: lead.challenge },
-        ],
-        context: {
-          pageUri:  window.location.href,
-          pageName: document.title,
+    // The API stores the lead and owns the HubSpot push, so the browser no longer
+    // talks to HubSpot directly — one path in, no duplicate contacts.
+    window.dbr77HandleSubmit({
+      form: form,
+      payload: {
+        site: 'imts',
+        form: 'rec',
+        startedAt: window.dbr77LoadedAt,
+        website: form.elements.website.value,
+        fields: {
+          firstName: val('fname'),
+          lastName:  val('lname'),
+          email:     val('email'),
+          phone:     val('phone'),
+          challenge: val('ch')
         },
-        legalConsentOptions: {
-          consent: {
-            consentToProcess: true,
-            text: 'I agree to DBR77 using my data to contact me about this IMTS request.',
-          },
-        },
-      }),
-    }).catch(err => console.error('HubSpot submit failed:', err));
-
-    form.style.display = 'none';
-    document.getElementById('rec-success').style.display = 'block';
+        consent: { given: consentEl.checked, text: consentText },
+        attribution: window.dbr77Attribution({ quizResult: window.dbr77QuizResult })
+      },
+      onSuccess: () => {
+        form.style.display = 'none';
+        document.getElementById('rec-success').style.display = 'block';
+      },
+      onError: errors => {
+        const key = Object.keys(errors)[0];
+        const field = { firstName: 'fname', lastName: 'lname', email: 'email', phone: 'phone', challenge: 'ch' }[key];
+        if (field) {
+          const el = document.getElementById(field);
+          el.classList.add('invalid');
+          el.focus();
+        }
+        if (legal) {
+          legal.textContent = errors._ || errors[key] || 'Please check the highlighted fields and try again.';
+          legal.style.color = '#ff5d67';
+          setTimeout(() => { legal.textContent = legalText; legal.style.color = ''; }, 6000);
+        }
+      }
+    });
   });
 
   // Clear the invalid state as the visitor corrects a field
@@ -1055,6 +1247,7 @@
       // Pre-fill the existing challenge field (value only — form structure untouched)
       const sel = document.getElementById('ch');
       if (sel) { sel.value = s.key; }
+      window.dbr77QuizResult = s.key;
 
       document.getElementById('result-contact').addEventListener('click', () => {
         const sel2 = document.getElementById('ch');
