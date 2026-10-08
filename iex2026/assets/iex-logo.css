@@ -1,0 +1,10 @@
+/* IEX conference logo: header lockup + hero mark */
+.brand-iex{display:flex;align-items:center;line-height:0}
+.brand-iex img{height:30px;width:auto;display:block}
+.brand-by{display:flex;align-items:center;gap:8px;font-size:10px;color:var(--muted);text-decoration:none;letter-spacing:.08em;text-transform:uppercase;padding-left:14px;border-left:1px solid var(--line);line-height:1;white-space:nowrap}
+.brand-by img{height:16px;width:auto;display:block;opacity:.92}
+.brand-by:hover{color:var(--text)}
+.hero-logo{display:block;width:clamp(170px,24vw,280px);height:auto;margin:0 0 30px}
+@media(max-width:719px){.brand-iex img{height:26px}.hero-logo{width:170px;margin-bottom:24px}}
+.foot-logo{display:block;height:22px;width:auto;margin-bottom:8px}
+@media(max-width:480px){.brand-by span{display:none}}
