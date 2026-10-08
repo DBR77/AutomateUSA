@@ -18,3 +18,11 @@ Commit and open a PR into `main`; after merge, check Railway SUCCESS and https:/
 Primary live design, date/time pairs and existing registration script were preserved. Panel 05 speaker cards, images, biographies and NC WTA partner from commit 761b7d7 were retained. The old page https://automate.dbr77.com/events/iex/ now redirects to the official page, preserving query parameters and fragments when JavaScript is enabled. GitHub Pages only supports a client redirect here, not an HTTP 301.
 
 Earlier AI editing prompts pointing to `events/iex/index.html` are superseded by this guide.
+
+## Publication verification
+
+On 2026-10-08 Railway deployed GitHub commit `e6615e73f1296333fc899f790a1e261765f5cc3e` (deployment `4abcf5ff-25b5-40c3-bc9e-aa1df5922bce`). A subsequent push to the canonical folder automatically triggered deployment `d92d0d76-f3bd-48eb-aa00-48f8be5a3efd` of commit `903b25d16965827a16af176b12d761adc7c6994f`; SUCCESS and matching live HTML were confirmed. Both deployments identify DBR77/AutomateUSA and branch main.
+
+Checks: old URL redirects to the official domain retaining query and fragment; GitHub Pages does not publish a second `/iex2026/` copy (404); speaker dialog opens/closes; no failed loaded images or horizontal overflow; local mobile width 390 passes. Registration JavaScript was preserved exactly; no real HubSpot submission was made during migration.
+
+GitHub account TomaszJankowski111 has Write permission. Katarzyna access remains pending a confirmed GitHub username; no invitation has been sent to an unverified account.
