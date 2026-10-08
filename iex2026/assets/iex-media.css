@@ -1,0 +1,79 @@
+/* Program photography */
+.program-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(290px, .85fr);
+  gap: 26px;
+  align-items: center;
+  padding: 18px;
+  overflow: hidden;
+}
+
+.program-copy { padding: 14px 12px 14px 20px; }
+
+.panel {
+  display: grid;
+  grid-template-columns: minmax(270px, .72fr) minmax(0, 1.28fr);
+  gap: 24px;
+  align-items: stretch;
+  padding: 18px;
+}
+
+.panel-media {
+  position: relative;
+  min-height: 228px;
+  border-radius: 17px;
+  overflow: hidden;
+  background: #081323;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.12);
+}
+
+.panel-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 58%, rgba(3,8,18,.38));
+  pointer-events: none;
+}
+
+.panel-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: saturate(.92) contrast(1.03);
+}
+
+.panel-body {
+  position: relative;
+  z-index: 1;
+  padding: 9px 11px 9px 0;
+  align-self: center;
+}
+
+.panel::after { z-index: 0; }
+
+@media (max-width: 860px) {
+  .program-intro, .panel { grid-template-columns: 1fr; }
+  .program-copy { padding: 14px; }
+  .panel-body { padding: 8px 6px 11px; }
+  .panel-media { min-height: 220px; max-height: 300px; }
+  .program-intro .panel-media { order: -1; }
+}
+
+@media (max-width: 520px) {
+  .panel, .program-intro { padding: 12px; gap: 13px; }
+  .panel-media { min-height: 190px; }
+  .panel h3 { font-size: 22px; }
+  .program-intro h3 { font-size: 26px; }
+}
+
+/* Keep both city times together at every breakpoint. */
+.slot { grid-template-columns: 150px minmax(0, 1fr); }
+.slot-times { display: grid; gap: 2px; align-content: start; }
+.slot-times time { display: block; white-space: nowrap; }
+.slot-times time + time { color: var(--muted); font-size: 11px; }
+
+@media (max-width: 520px) {
+  .slot { grid-template-columns: 1fr; gap: 6px; }
+  .slot-times { grid-template-columns: auto auto; gap: 12px; justify-content: start; }
+}
