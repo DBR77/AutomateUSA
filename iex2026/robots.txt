@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://iex2026.dbr77.com/sitemap.xml

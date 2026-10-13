@@ -9,8 +9,23 @@
   <link rel="stylesheet" href="assets/iex.css">
   <link rel="stylesheet" href="assets/iex-media.css">
   <link rel="canonical" href="https://iex2026.dbr77.com/">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <meta property="og:type" content="website"><meta property="og:site_name" content="IEX 2026 · DBR77"><meta property="og:locale" content="en_US">
+  <meta property="og:title" content="IEX 2026 · Physical AI in Manufacturing">
+  <meta property="og:description" content="Free global online conference on October 28, 2026: five expert panels, the Physical AI in American Manufacturing 2026 report and practical post-event materials.">
+  <meta property="og:url" content="https://iex2026.dbr77.com/"><meta property="og:image" content="https://iex2026.dbr77.com/assets/iex-og.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="IEX 2026 · Physical AI in Manufacturing">
+  <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="IEX 2026 · Physical AI in Manufacturing"><meta name="twitter:description" content="Free global online conference on October 28, 2026: five expert panels, the Physical AI report and post-event materials."><meta name="twitter:image" content="https://iex2026.dbr77.com/assets/iex-og.jpg">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Event","name":"IEX 2026 · Physical AI in Manufacturing","description":"A global online conference for manufacturing leaders: five expert panels, the Physical AI in American Manufacturing 2026 report and practical post-event materials.","startDate":"2026-10-28T09:00:00-04:00","endDate":"2026-10-28T15:00:00-04:00","eventStatus":"https://schema.org/EventScheduled","eventAttendanceMode":"https://schema.org/OnlineEventAttendanceMode","location":{"@type":"VirtualLocation","url":"https://iex2026.dbr77.com/"},"image":["https://iex2026.dbr77.com/assets/iex-og.jpg"],"inLanguage":"en","isAccessibleForFree":true,"organizer":{"@type":"Organization","name":"DBR77","url":"https://dbr77.com/en/"},"offers":{"@type":"Offer","url":"https://iex2026.dbr77.com/#register","price":"0","priceCurrency":"USD","availability":"https://schema.org/InStock","validFrom":"2026-08-01"}}</script>
   <link rel="stylesheet" href="assets/speakers.css">
   <link rel="stylesheet" href="assets/iex-logo.css">
+  <!-- Google Analytics 4 (property: IEX 2026) with Consent Mode v2: denied by default in EEA, UK and Switzerland -->
+  <script>
+    window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+    gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied',region:['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT','LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE','IS','LI','NO','GB','CH'],wait_for_update:500});
+    gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'granted'});
+    gtag('js',new Date());gtag('config','G-NTTW9LMRJ8');
+  </script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NTTW9LMRJ8"></script>
 </head>
 <body>
 <header><div class="wrap nav"><a class="brand brand-iex" href="#top" aria-label="IEX 2026 – Physical AI in Manufacturing"><img src="assets/iex-mark-accent.png" alt="IEX" width="1010" height="374"></a><a class="brand-by" href="https://dbr77.com/en/" target="_blank" rel="noopener" aria-label="Powered by DBR77 – English homepage"><span>powered by</span><img src="assets/dbr77-logo-light.png" alt="DBR77" height="16"></a><nav class="navlinks"><a href="#program">Five panels</a><a href="#report">The report</a><a href="#schedule">Schedule</a><a href="#register">Register</a><a href="https://dbr77.com/en/" target="_blank" rel="noopener">DBR77.com</a></nav><a class="btn btn-primary" href="#register">Register free</a></div></header>
@@ -50,6 +65,10 @@ document.getElementById('register-form').addEventListener('submit',async event=>
 <script>
     document.querySelectorAll('.person').forEach(b=>b.addEventListener('click',()=>document.getElementById('bio-'+b.dataset.person).showModal()));
     document.querySelectorAll('.bio-dialog').forEach(d=>{d.addEventListener('click',e=>{if(e.target===d||e.target.closest('.bio-close'))d.close()})});
+  </script>
+  <script>
+    /* GA4: count a registration as a lead once the existing form shows its success message. */
+    (function(){var ok=document.getElementById('success');if(!ok||!window.MutationObserver)return;new MutationObserver(function(){if(ok.classList.contains('show')&&typeof gtag==='function')gtag('event','generate_lead',{form_id:'iex2026_registration'})}).observe(ok,{attributes:true,attributeFilter:['class']});})();
   </script>
 </body>
 </html>
