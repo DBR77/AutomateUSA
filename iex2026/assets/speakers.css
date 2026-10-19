@@ -3,3 +3,6 @@
 .panel-people{padding:20px 0 6px;margin-top:20px}.panel-people .person img{height:auto}.panel[data-theme="DECISIONS"]{align-items:start}.panel[data-theme="DECISIONS"] .panel-media{align-self:stretch}
 
 .trust-grid div{display:flex;align-items:center;justify-content:center;padding:18px}.trust-grid img{height:84px;width:210px;max-width:100%;object-fit:contain;background:#fff;border-radius:10px;padding:8px 12px;display:block}.trust-grid .logo-dbr{padding:8px 14px}.trust-grid a{display:block}
+.person-static,.person-tba{cursor:default}.person-static:hover img{border-color:var(--line);transform:none}.tba-box{width:100%;aspect-ratio:1/1;border-radius:14px;border:1px dashed var(--line);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:18px;font-weight:800;letter-spacing:.16em;background:rgba(255,255,255,.03);margin-bottom:8px}
+.presenters{margin-top:24px}.presenters h4{color:var(--muted);font-size:10px;letter-spacing:.14em;margin-bottom:14px;text-transform:uppercase}.presenter-row{display:grid;grid-template-columns:repeat(2,minmax(0,220px));gap:20px}.presenter-row .person b{font-size:18px}.presenter-row .person span:last-child{font-size:14px}@media(max-width:560px){.presenter-row{grid-template-columns:repeat(2,1fr);gap:14px}}
+.bio-body p+p{margin-top:10px}
