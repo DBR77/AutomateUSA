@@ -1,6 +1,6 @@
 ## IEX 2026 editing
 
-The official IEX website is https://iex2026.dbr77.com/. Edit `iex2026/index.html` and `iex2026/assets/`. See [IEX_EDITOR_GUIDE.md](IEX_EDITOR_GUIDE.md). The old `events/iex/` page is a redirect.
+The official IEX website is https://iex2026.dbr77.com/. Edit `iex2026/index.html` and `iex2026/assets/`. The internal editing and publishing guide is kept in the DBR77 ClickUp workspace (not in this public repository). The old `events/iex/` page is a redirect.
 
 # AutomateUSA — Landing Page (IMTS Chicago 2026)
 
